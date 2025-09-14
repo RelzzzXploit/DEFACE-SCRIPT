@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Deface Simulation</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: white;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Efek salju */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: white;
+      font-size: 1em;
+      user-select: none;
+      animation: fall 10s linear infinite;
+      z-index: 0;
+    }
+    @keyframes fall {
+      to { transform: translateY(100vh); }
+    }
+
+    .profile {
+      margin-top: 80px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .profile img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid red;
+      box-shadow: 0 0 20px red;
+    }
+
+    .description {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #aaa;
+    }
+
+    /* Tombol lagu */
+    .music-controls {
+      margin-top: 20px;
+    }
+
+    .music-btn {
+      padding: 10px 20px;
+      border: none;
+      background: red;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 16px;
+      box-shadow: 0 0 10px red;
+    }
+
+    .music-btn:hover {
+      background: darkred;
+    }
+
+    .time-display {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ff5555;
+    }
+
+    /* Tulisan berjalan glitch */
+    .marquee {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      color: red;
+      font-size: 14px;
+      overflow: hidden;
+      white-space: nowrap;
+      animation: marquee 10s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .glitch {
+      position: relative;
+      display: inline-block;
+      animation: glitch 1s infinite;
+      text-shadow: 1px 1px 3px #ff0000, -1px -1px 3px #ff0000;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 red, -2px 0 blue; }
+      50% { text-shadow: -2px 0 red, 2px 0 blue; }
+      100% { text-shadow: 2px 0 red, -2px 0 blue; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile">
+    <img src="https://files.catbox.moe/ucqyx5.jpg" alt="Profile">
+    <div class="description">⚠️HACKED BY RELZ XPLOIT⚠️</div>
+
+<div class="description">SITUS TELAH DIRETAS OLEH RELZ XPLOIT, Your security is not broken, this is only a mirror of what could be.</div>
+
+<div class="description">#FreePalestine🇵🇸
+#AllEyesOnRafah🇵🇸
+#FuckIsrael🥵</div>
+
+    <div class="music-controls">
+      <button class="music-btn" onclick="toggleMusic()">▶ Play Music </button>
+      <div class="time-display" id="time-display">00:00 / 00:00</div>
+    </div>
+  </div>
+
+  <div class="marquee glitch">>>> FROM CYBER TO BOTHER <<<</div>
+
+  <!-- Audio -->
+  <audio id="bg-music" loop>
+    <source src="https://files.catbox.moe/gh8ent.mp4" type="audio/mpeg">
+  </audio>
+
+  <!-- Script efek salju -->
+  <script>
+    // Efek salju
+    function createSnow() {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.textContent = '.';
+      snowflake.style.left = Math.random() * window.innerWidth + 'px';
+      snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+      snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      document.body.appendChild(snowflake);
+      setTimeout(() => { snowflake.remove(); }, 10000);
+    }
+    setInterval(createSnow, 200);
+
+    // Musik
+    const music = document.getElementById("bg-music");
+    const timeDisplay = document.getElementById("time-display");
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+
+    // Update waktu lagu
+    music.addEventListener("timeupdate", () => {
+      const current = formatTime(music.currentTime);
+      const duration = formatTime(music.duration);
+      timeDisplay.textContent = `${current} / ${duration}`;
+    });
+
+    function formatTime(sec) {
+      if (isNaN(sec)) return "00:00";
+      let minutes = Math.floor(sec / 60);
+      let seconds = Math.floor(sec % 60);
+      if (minutes < 10) minutes = "0" + minutes;
+      if (seconds < 10) seconds = "0" + seconds;
+      return `${minutes}:${seconds}`;
+    }
+  </script>
+</body>
+</html>
